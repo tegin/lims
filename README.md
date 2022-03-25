@@ -11,6 +11,13 @@ Modules for a LIMS integration
 <!-- prettier-ignore-start -->
 
 [//]: # (addons)
+
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[lims](lims/) | 13.0.1.0.0 |  | Laboratory Information Management System
+
 [//]: # (end addons)
 
 <!-- prettier-ignore-end -->
