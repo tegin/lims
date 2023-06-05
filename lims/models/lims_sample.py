@@ -11,9 +11,7 @@ class LimsSample(models.Model):
     _rec_name = "identifier"
     _check_company_auto = True
 
-    identifier = fields.Char(
-        required=True, default="/", readonly=True, copy=False
-    )
+    identifier = fields.Char(required=True, default="/", readonly=True, copy=False)
     external_identifier = fields.Char()
     state = fields.Selection(
         [
@@ -66,7 +64,10 @@ class LimsSample(models.Model):
     )
     analysis_ids = fields.One2many("lims.analysis", inverse_name="sample_id")
     interpretation = fields.Html()
-    progress = fields.Float(compute="_compute_progress", store=True,)
+    progress = fields.Float(
+        compute="_compute_progress",
+        store=True,
+    )
 
     _sql_constraints = [
         (
@@ -86,9 +87,7 @@ class LimsSample(models.Model):
     def _get_identifier(self, vals):
         return (
             self.env["ir.sequence"]
-            .with_context(
-                force_company=vals.get("company_id", self.env.company.id)
-            )
+            .with_context(force_company=vals.get("company_id", self.env.company.id))
             .next_by_code("lims.sample")
             or "/"
         )
@@ -129,8 +128,7 @@ class LimsSample(models.Model):
     def _check_verify(self):
         return not any(
             self.analysis_ids.filtered(
-                lambda r: r.state
-                in ["registered", "to_analyze", "to_be_verified"]
+                lambda r: r.state in ["registered", "to_analyze", "to_be_verified"]
             )
         )
 
@@ -143,9 +141,7 @@ class LimsSample(models.Model):
             record.progress = record._get_progress()
 
     def get_analysis(self):
-        return self.analysis_ids.filtered(
-            lambda r: r.state not in ["rejected"]
-        )
+        return self.analysis_ids.filtered(lambda r: r.state not in ["rejected"])
 
     def _get_progress(self):
         analysis = self.get_analysis()

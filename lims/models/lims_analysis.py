@@ -46,12 +46,15 @@ class LimsAnalysis(models.Model):
     due_date = fields.Datetime(readonly=True)
     verification_date = fields.Datetime(readonly=True)
     uom_id = fields.Many2one(
-        "uom.uom", readonly=True, states={"registered": [("readonly", False)]},
+        "uom.uom",
+        readonly=True,
+        states={"registered": [("readonly", False)]},
     )
     progress = fields.Float(compute="_compute_progress", store=True)
     can_verify = fields.Boolean(compute="_compute_can_verify")
     value = fields.Char(
-        readonly=True, states={"to_analyze": [("readonly", False)]},
+        readonly=True,
+        states={"to_analyze": [("readonly", False)]},
     )
     # TODO: Replace this for something better. isn't it?
 
@@ -81,9 +84,7 @@ class LimsAnalysis(models.Model):
     def _get_identifier(self, vals):
         return (
             self.env["ir.sequence"]
-            .with_context(
-                force_company=vals.get("company_id", self.env.company.id)
-            )
+            .with_context(force_company=vals.get("company_id", self.env.company.id))
             .next_by_code("lims.analysis")
             or "/"
         )
@@ -155,8 +156,7 @@ class LimsAnalysis(models.Model):
     def _compute_can_verify(self):
         for record in self:
             record.can_verify = (
-                record.state == "to_be_verified"
-                and record.analyst_id != self.env.user
+                record.state == "to_be_verified" and record.analyst_id != self.env.user
             )
 
     def retract_action(self):
