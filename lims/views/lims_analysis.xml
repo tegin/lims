@@ -43,6 +43,11 @@
             <tree editable="bottom">
                 <field name="identifier" invisible="1" />
                 <field name="product_id" />
+                <field
+                    name="product_id"
+                    context="{'default_laboratory_ok': True, 'default_sale_ok':False, 'default_purchase_ok':False}"
+                    options="{'no_quick_create': true}"
+                />
                 <field name="name" />
                 <field name="value" />
                 <field name="uom_id" />

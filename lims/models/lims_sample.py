@@ -22,9 +22,7 @@ class LimsSample(models.Model):
             ("to_be_verified", "To be verified"),
             ("verified", "Verified"),
             ("published", "Published"),
-            ("dispatched", "Dispatched"),
             ("cancelled", "Cancelled"),
-            ("rejected", "Rejected"),
             ("invalid", "Invalid"),
         ],
         required=True,
@@ -141,7 +139,7 @@ class LimsSample(models.Model):
             record.progress = record._get_progress()
 
     def get_analysis(self):
-        return self.analysis_ids.filtered(lambda r: r.state not in ["rejected"])
+        return self.analysis_ids.filtered(lambda r: r.state not in ["invalid"])
 
     def _get_progress(self):
         analysis = self.get_analysis()

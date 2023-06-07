@@ -154,9 +154,10 @@ class LimsAnalysis(models.Model):
     @api.depends_context("uid")
     @api.depends("state", "analyst_id")
     def _compute_can_verify(self):
+        verify_param = int(self.env["ir.config_parameter"].sudo().get_param("lims.unforce_double_verification_manager"),) and self.env.user.has_group("lims.group_lims_manager")
         for record in self:
             record.can_verify = (
-                record.state == "to_be_verified" and record.analyst_id != self.env.user
+                record.state == "to_be_verified" and (verify_param or record.analyst_id != self.env.user)
             )
 
     def retract_action(self):

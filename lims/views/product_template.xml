@@ -12,6 +12,10 @@
                     <field name="laboratory_ok" />
                     <label for="laboratory_ok" />
                 </div>
+                <div>
+                    <field name="is_lab_template" />
+                    <label for="is_lab_template" />
+                </div>
             </xpath>
             <field name="uom_id" position="after">
                 <field

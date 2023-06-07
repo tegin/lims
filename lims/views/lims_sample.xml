@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2022 Creu Blanca
-     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-<odoo>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). --><odoo>
     <record model="ir.ui.view" id="lims_sample_form_view">
         <field name="name">lims.sample.form (in lims)</field>
         <field name="model">lims.sample</field>
